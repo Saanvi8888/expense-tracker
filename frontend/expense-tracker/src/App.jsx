@@ -12,7 +12,7 @@ import Income from './pages/Dashboard/Income'
 import Expense from './pages/Dashboard/Expense'
 
 import {Toaster} from "react-hot-toast";
-import UserProvider, { UserContext } from './context/userContext'
+import UserProvider, { UserContext } from './context/UserContext'
 
 const App = () => {
   return (
