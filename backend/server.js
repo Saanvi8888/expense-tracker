@@ -25,13 +25,25 @@ app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/dashboard",dashboardRoutes);
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/expense-tracker/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/expense-tracker/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "../frontend/expense-tracker/dist", "index.html")
-    );
+//   app.get("*", (req, res, next) => {
+//     res.sendFile(
+//         path.resolve(__dirname, "../frontend/expense-tracker/dist", "index.html"),
+//         (err) => {
+//         if (err) next(err);
+//         }
+//     );
+//     });
+// }
+if (process.env.NODE_ENV === "production") {
+  const staticPath = path.join(__dirname, "../frontend/expense-tracker/dist");
+  
+  app.use(express.static(staticPath));
+  
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(staticPath, "index.html"));
   });
 }
 const PORT = process.env.PORT || 5000;
