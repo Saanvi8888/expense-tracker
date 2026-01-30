@@ -1,18 +1,26 @@
 const multer = require("multer");
-const path = require("path");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../uploads")); 
-    },
-    filename: (req, file, cb) => {
-        
-        const ext = path.extname(file.originalname); // .png, .jpg, etc.
-        cb(null, `${Date.now()}-${file.fieldname}${ext}`);
-    }
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'expense-tracker',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+    public_id: (req, file) => {
+      
+      const name = file.originalname.split('.')[0];
+      return `${Date.now()}-${name}`;
+    }
+  },
+});
 
 
 const fileFilter = (req, file, cb) => {
@@ -24,7 +32,10 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-
-const upload = multer({ storage, fileFilter });
+const upload = multer({ 
+  storage, 
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 } 
+});
 
 module.exports = upload;
