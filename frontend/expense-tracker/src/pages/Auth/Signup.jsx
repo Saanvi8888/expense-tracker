@@ -41,10 +41,11 @@ const Signup = () => {
 
     try {
 
-      if(profilePic){
-        const imgUploadsres = await uploadImage(profilePic);
-        profileImageUrl = imgUploadsres.imageUrl||"";
-      }
+      // if(profilePic){
+      //   const imgUploadsres = await uploadImage(profilePic);
+      //   profileImageUrl = imgUploadsres.imageUrl||"";
+      // }
+      let profileImageUrl = "https://ui-avatars.com/api/?name=" + encodeURIComponent(fullName);
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
         fullName,
         email,
