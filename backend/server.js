@@ -25,18 +25,6 @@ app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/dashboard",dashboardRoutes);
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../frontend/expense-tracker/dist")));
-
-//   app.get("*", (req, res, next) => {
-//     res.sendFile(
-//         path.resolve(__dirname, "../frontend/expense-tracker/dist", "index.html"),
-//         (err) => {
-//         if (err) next(err);
-//         }
-//     );
-//     });
-// }
 if (process.env.NODE_ENV === "production") {
   const staticPath = path.join(__dirname, "../frontend/expense-tracker/dist");
   
