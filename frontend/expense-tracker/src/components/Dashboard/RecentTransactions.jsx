@@ -5,7 +5,7 @@ import TransactionInfoCard from '../cards/TransactionInfoCard'
 
 const RecentTransactions = ({ transactions = [] ,onSeeMore}) => {
   return (
-    <div className='card'>
+    <div className='card min-h-[420px]'>
       <div className='flex items-center justify-between'>
         <h5 className='text-lg'>All Transactions</h5>
         <button className='card-btn' onClick={onSeeMore}>

@@ -18,7 +18,10 @@ const Last30daysExpenses = ({data}) => {
       {chartData?.length > 0 ? (
         <CustomBarChart data={chartData} />
       ) : (
-        <p className="text-sm text-gray-500">No data available yet.</p>
+        <div className="h-52 flex items-center justify-center text-sm text-gray-400 text-center">
+          No data available
+        </div>
+
       )}
       
     </div>

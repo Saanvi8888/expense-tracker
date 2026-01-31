@@ -4,7 +4,7 @@ import TransactionInfoCard from '../cards/TransactionInfoCard'
 import moment from "moment"
 const ExpenseTransactions = ({transactions,onSeeMore}) => {
   return (
-    <div className='card'>
+    <div className='card min-h-[420px]'>
         <div className='flex items-center justify-between'>
             <h5 className='text-lg'>Recent Expenses</h5>
 
