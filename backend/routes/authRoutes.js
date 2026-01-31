@@ -13,22 +13,31 @@ router.post("/login",loginUser);
 router.get("/getUser",protect,getUserInfo);
 
 
-// router.post("/upload-image", upload.single("image"), (req, res) => {
-//     try {
-//         if(!req.file){
-//             return res.status(400).json({message:"No file uploaded"});
-//         }
+router.post("/upload-image", upload.single("image"), (req, res) => {
+    
+    try {
+        if (!req.file) {
+            console.log("No file received");
+            return res.status(400).json({ message: "No file uploaded" });
+        }
         
-//         const imageUrl = "https://ui-avatars.com/api/?name=User&background=random";
+        console.log("File uploaded successfully:", {
+            filename: req.file.originalname,
+            url: req.file.path,
+            size: req.file.size
+        });
         
-//         res.status(200).json({imageUrl});
+        const imageUrl = req.file.path;
         
-//     } catch (error) {
-//         console.error("Upload error:", error.message);
-//         res.status(500).json({ 
-//             message: "Image upload failed",
-//             error: error.message 
-//         });
-//     }
-// });
+        res.status(200).json({ imageUrl });
+        
+    } catch (error) {
+        console.error("Upload route error:", error.message);
+        console.error(error.stack);
+        res.status(500).json({ 
+            message: "Image upload failed",
+            error: error.message 
+        });
+    }
+});
 module.exports = router;

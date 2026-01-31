@@ -1,31 +1,27 @@
-// import { API_PATHS } from "./apiPaths";
-// import axiosInstance from "./axiosInstance";
-
-// const uploadImage = async(imageFile) =>{
-//     const formData = new FormData();
-//     formData.append('image',imageFile);
-
-//     try {
-//         const response = await axiosInstance.post(API_PATHS.IMAGE.UPLOAD_IMAGE,formData,{
-//             headers:{
-//                 'Content-Type':"multipart/form-data",
-//             },
-//         });
-//         return response.data;
-//     } catch (error) {
-//         console.error("error uploading the image:",error);
-//         throw error;
-        
-//     }
-// }
-
-// export default uploadImage;
+import { API_PATHS } from "./apiPaths";
+import axiosInstance from "./axiosInstance";
 
 const uploadImage = async(imageFile) => {
-    // Return placeholder URL immediately - NO API call
-    return { 
-        imageUrl: "https://ui-avatars.com/api/?name=User&background=random"
-    };
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+        console.log("Uploading to Cloudinary...");
+        const response = await axiosInstance.post(
+            API_PATHS.IMAGE.UPLOAD_IMAGE, 
+            formData,
+            {
+                headers: {
+                    'Content-Type': "multipart/form-data",
+                },
+            }
+        );
+        console.log("Upload success:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Upload failed:", error.response?.data || error.message);
+        throw error;
+    }
 };
 
 export default uploadImage;
