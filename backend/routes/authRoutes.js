@@ -1,11 +1,7 @@
 const express= require("express");
 const {protect} =require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware")
-const{
-    registerUser,
-    loginUser,
-    getUserInfo,
-} = require("../controllers/authController");
+const{registerUser,loginUser,getUserInfo} = require("../controllers/authController");
 const router = express.Router();
 
 router.post("/register",registerUser);
@@ -21,11 +17,11 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
             return res.status(400).json({ message: "No file uploaded" });
         }
         
-        console.log("File uploaded successfully:", {
-            filename: req.file.originalname,
-            url: req.file.path,
-            size: req.file.size
-        });
+        // console.log("File uploaded successfully:", {
+        //     filename: req.file.originalname,
+        //     url: req.file.path,
+        //     size: req.file.size
+        // });
         
         const imageUrl = req.file.path;
         

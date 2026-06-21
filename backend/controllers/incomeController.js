@@ -4,7 +4,6 @@ const xlsx = require("xlsx");
 const path = require("path");
 exports.addIncome = async(req,res)=>{
     const userId = req.user.id;
-
     try {
         const{icon,source,amount,date} =req.body;
         if(!source || !amount || !date){
@@ -20,9 +19,6 @@ exports.addIncome = async(req,res)=>{
         });
         await newIncome.save();
         res.status(200).json(newIncome);
-
-
-
     } catch (error) {
         res.status(500).json({message:"Server Error"});
     }
@@ -31,7 +27,7 @@ exports.addIncome = async(req,res)=>{
 exports.getAllIncome = async(req,res)=>{
     const userId = req.user.id;
     try {
-        const income = await Income.find({userId}).sort({sate:-1});
+        const income = await Income.find({userId}).sort({date:-1});
         res.json(income);
     } catch (error) {
         res.status(500).json({message:"server error"})
@@ -51,7 +47,6 @@ exports.deleteIncome = async(req,res)=>{
 
 exports.downloadIncomeExcel = async (req, res) => {
   const userId = req.user.id;
-
   try {
     const income = await Income.find({ userId }).sort({ date: -1 });
 
@@ -64,11 +59,7 @@ exports.downloadIncomeExcel = async (req, res) => {
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "Income");
-
-    
     const filePath = path.join(__dirname, "../income_details.xlsx");
-
-    
     xlsx.writeFile(wb, filePath);
 
     res.download(filePath, "income_details.xlsx");

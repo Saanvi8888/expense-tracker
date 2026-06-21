@@ -48,14 +48,8 @@ exports.getDashboardData = async (req, res) => {
       0
     );
 
-   
-    const recentIncome = await Income.find({ userId: userObjectId })
-      .sort({ date: -1 })
-      .limit(5);
-
-    const recentExpense = await Expense.find({ userId: userObjectId })
-      .sort({ date: -1 })
-      .limit(5);
+    const recentIncome = await Income.find({ userId: userObjectId }).sort({ date: -1 }).limit(5);
+    const recentExpense = await Expense.find({ userId: userObjectId }).sort({ date: -1 }).limit(5);
 
     const recentTransactions = [
       ...recentIncome.map(txn => ({

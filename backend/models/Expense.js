@@ -1,8 +1,14 @@
 const mongoose = require("mongoose")
 
 const ExpenseSchema = new mongoose.Schema({
-    userId:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},
-    icon:{type:String},
+    userId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true
+    },
+    icon:{
+      type:String
+    },
     category: {
       type: String,
       enum: [
@@ -17,8 +23,13 @@ const ExpenseSchema = new mongoose.Schema({
       required: true,
       default: "Other",
     },
-    amount: {type:Number,required:true},
-    date:{type:Date,default:Date.now},
+    amount: {
+      type:Number,
+      required:true
+    },
+    date:{
+      type:Date,
+      default:Date.now},
 },{timestamps:true});
 
 
