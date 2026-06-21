@@ -12,7 +12,7 @@ const budgetRoutes = require("./routes/budgetRoutes");
 const aiRoutes = require("./routes/aiRoutes")
 app.use(
     cors({
-        origin:process.env.CLIENT_URL ,
+        origin:["http://localhost:5173",process.env.CLIENT_URL] ,
         methods: ["GET","POST","PUT","DELETE"],
         allowedHeaders:["Content-Type","Authorization"],
     })
