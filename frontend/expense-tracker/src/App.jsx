@@ -1,10 +1,5 @@
 import React from 'react'
-
-import {
-  BrowserRouter as Router,
-  Routes,Route,Navigate,
-} from "react-router-dom"
-
+import {BrowserRouter as Router,Routes,Route,Navigate,} from "react-router-dom"
 import Login from './pages/Auth/Login'
 import Signup from './pages/Auth/Signup'
 import Home from './pages/Dashboard/Home'
@@ -13,15 +8,15 @@ import Expense from './pages/Dashboard/Expense'
 
 import {Toaster} from "react-hot-toast";
 import UserProvider, { UserContext } from './context/UserContext'
+import BudgetSettings from './pages/Dashboard/BudgetSettings'
 
 const App = () => {
   return (
-    
       <UserProvider>
-        
           <div>
             <Router>
               <Routes>
+                <Route path="/budget" element={<BudgetSettings />} />
                 <Route path='/' element={<Root/>}/>
                 <Route path='/login'  element={<Login/>}/>
                 <Route path='/signup'  element={<Signup/>}/>
@@ -29,8 +24,7 @@ const App = () => {
                 <Route path='/income'  element={<Income/>}/>
                 <Route path='/expense'  element={<Expense/>}/>
               </Routes>
-            </Router>
-            
+            </Router> 
           </div>
 
           <Toaster
@@ -41,8 +35,6 @@ const App = () => {
               }
             }}
           />
-        
-
       </UserProvider>
   )
 }

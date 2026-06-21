@@ -24,15 +24,12 @@ const Expense = () => {
     setloading(true);
 
     try {
-      const response = await axiosInstance.get(
-        `${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`
-      )
+      const response = await axiosInstance.get(`${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`)
       if(response.data){
         setExpenseData(response.data)
       }
     } catch (error) {
       console.log("Something went wrong.Please try again.",error);
-      
     }finally{
       setloading(false);
     }
@@ -45,18 +42,14 @@ const Expense = () => {
       toast.error("Category is required.");
       return;
     }
-
-
     if(!amount || isNaN(amount) || Number(amount)<=0){
       toast.error("Amount should be a valid number greater than 0.")
       return;
     }
-
     if(!date){
       toast.error("Date is required.")
       return;
     }
-
     try {
       await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE,{
         category,

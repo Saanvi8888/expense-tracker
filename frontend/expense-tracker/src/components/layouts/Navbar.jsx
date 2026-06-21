@@ -1,55 +1,42 @@
 import React, { useState } from "react";
 import SideMenu from "./SideMenu";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { LuMoon, LuSun } from "react-icons/lu";
-
 
 const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
-  
 
   return (
-    <div className="
-      flex items-center justify-between gap-5
-      bg-slate-700/90
-       
-      px-7 py-4 sticky top-0 z-30 transition-colors
-    ">
-      
-      <div className="flex items-center gap-4">
-        <button
-          className="block lg:hidden text-slate-900 dark:text-slate-100"
-          onClick={() => setOpenSideMenu(!openSideMenu)}
-        >
-          {openSideMenu ? (
-            <HiOutlineX className="text-2xl" />
-          ) : (
-            <HiOutlineMenu className="text-2xl" />
-          )}
-        </button>
+    <>
+      <div className="flex items-center justify-between px-6 py-4 bg-[#1a2332] sticky top-0 z-30 border-b border-white/5">
+        
+        <div className="flex items-center gap-3">
+          <button
+            className="block lg:hidden text-white/60 hover:text-white transition-colors"
+            onClick={() => setOpenSideMenu(!openSideMenu)}
+          >
+            {openSideMenu?<HiOutlineX className="text-xl" />
+              :<HiOutlineMenu className="text-xl" />
+            }
+          </button>
 
-        <div>
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-            Expense Tracker
-          </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Dashboard
-          </p>
+          <div>
+            <h2 className="text-sm font-bold text-white tracking-wide">
+              Expense Tracker
+            </h2>
+            <p className="text-[10px] text-white/30 font-mono uppercase tracking-wider">
+              {activeMenu}
+            </p>
+          </div>
         </div>
+
       </div>
 
-      
-
-     
       {openSideMenu && (
-        <div className="fixed top-[64px] left-0 bg-white ">
+        <div className="fixed top-[57px] left-0 z-40 h-full w-[220px] shadow-xl lg:hidden">
           <SideMenu activeMenu={activeMenu} />
         </div>
       )}
-      
-
-    </div>
-    
+    </>
   );
 };
 

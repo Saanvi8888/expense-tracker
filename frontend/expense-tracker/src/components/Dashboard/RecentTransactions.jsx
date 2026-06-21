@@ -3,21 +3,26 @@ import { LuArrowRight } from 'react-icons/lu'
 import dayjs from 'dayjs'
 import TransactionInfoCard from '../cards/TransactionInfoCard'
 
-const RecentTransactions = ({ transactions = [] ,onSeeMore}) => {
+const RecentTransactions = ({ transactions = [], onSeeMore }) => {
   return (
-    <div className='card min-h-[420px]'>
-      <div className='flex items-center justify-between'>
-        <h5 className='text-lg'>All Transactions</h5>
-        <button className='card-btn' onClick={onSeeMore}>
-          See All <LuArrowRight className="text-base" />
+    <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h5 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+          All Transactions
+        </h5>
+        <button
+          onClick={onSeeMore}
+          className="flex items-center gap-1 text-xs font-bold text-emerald-500 font-mono cursor-pointer hover:text-emerald-600 transition-colors"
+        >
+          SEE ALL <LuArrowRight className="text-sm" />
         </button>
       </div>
 
-      <div className="mt-6">
+      <div className="flex flex-col gap-2">
         {transactions.length === 0 ? (
-          <>
-            <p className='text-sm text-gray-500'>No data available yet.</p>
-          </>
+          <p className="text-xs text-slate-400 font-mono py-4 text-center">
+            NO TRANSACTIONS YET
+          </p>
         ) : (
           transactions.slice(0, 5).map((item) => (
             <TransactionInfoCard
@@ -32,7 +37,6 @@ const RecentTransactions = ({ transactions = [] ,onSeeMore}) => {
           ))
         )}
       </div>
-
     </div>
   )
 }

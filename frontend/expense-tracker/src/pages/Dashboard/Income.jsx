@@ -51,8 +51,6 @@ const Income = () => {
       toast.error("Amount should be a valid number greater than 0.");
       return;
     }
-
-
     if(!date){
       toast.error("Date is required.")
       return;
@@ -109,8 +107,7 @@ const Income = () => {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error downloading income details",error);
-      toast.error("Failed to downlaod income details.Please try again later.")
-      
+      toast.error("Failed to downlaod income details.Please try again later.")     
     }
   };
   
@@ -128,14 +125,15 @@ const Income = () => {
               onAddIncome = {()=>setOpenAddIncomeModal(true)}
             />
           </div>
-        </div>
-        <IncomeList
+          <IncomeList
           transactions={incomeData}
           onDelete={(id)=>{
             setopenDeleteAlert({show:true,data:id})
           }}
           onDownload={handleDownloadIncomeDetails}
         />
+        </div>
+        
 
         <Modal 
           isOpen={openAddIncomeModal}

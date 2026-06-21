@@ -1,80 +1,38 @@
-
 import React from "react";
-import {
-  LuUtensils,
-  LuTrendingUp,
-  LuTrendingDown,
-  LuTrash,
-  LuSmile,
-} from "react-icons/lu";
+import { LuTrendingUp, LuTrendingDown, LuTrash, LuSmile } from "react-icons/lu";
 
-const TransactionInfoCard = ({
-  title,
-  icon,
-  date,
-  amount,
-  type,
-  hideDeleteBtn,
-  onDelete,
-  // isEmpty=false,
-}) => {
-
-
-
-  const getAmountStyles = () =>
-    type === "income"
-      ? "bg-green-50 text-green-600"
-      : "bg-red-50 text-red-600";
+const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, onDelete }) => {
+  const isIncome = type === "income"
 
   return (
-    <div className="group relative flex items-center gap-4 mt-2 p-3 rounded-lg border border-gray-300 hover:bg-gray-100 transition">
-
-      
-      <div className="w-11 h-11 flex items-center justify-center rounded-full bg-white  text-black shrink-0 border-1 border-gray-300">
-        {icon ? (
-          icon
-        ) : (
-          <LuSmile />
-        )}
+    <div className="group flex items-center gap-3 p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all">
+      <div className={`w-9 h-9 flex items-center justify-center rounded-lg shrink-0 text-sm ${isIncome ? "bg-emerald-50 text-emerald-500" : "bg-red-50 text-red-400"}`}>
+        {icon || <LuSmile />}
       </div>
 
-
-      
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-gray-800 truncate">
-          {title }
-        </p>
-        <p className="text-xs text-gray-400 mt-0.5">
-          {date}
-        </p>
+        <p className="text-sm font-semibold text-slate-800 truncate">{title}</p>
+        <p className="text-[10px] text-slate-400 font-mono mt-0.5">{date}</p>
       </div>
 
-    
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         {!hideDeleteBtn && (
-          <button onClick={onDelete} className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-            <LuTrash size={18}/>  
+          <button
+            onClick={onDelete}
+            className="text-slate-300 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+          >
+            <LuTrash size={15} />
           </button>
         )}
-        
 
-        
-        <div
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium ${getAmountStyles()}`}
-        >
-          <span>
-            {type === "income" ? "+" : "-"}Rs.{amount}
-          </span>
-          {type === "income" ? (
-            <LuTrendingUp size={14} />
-          ) : (
-            <LuTrendingDown size={14} />
-          )}
+        <div className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${isIncome ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-500"}`}>
+          {isIncome ? <LuTrendingUp size={12} /> : <LuTrendingDown size={12} />}
+          <span>{isIncome ? "+" : "-"}₹{amount.toLocaleString()}</span>
         </div>
-
       </div>
-    </div>
-  );
-};
 
-export default TransactionInfoCard;
+    </div>
+  )
+}
+
+export default TransactionInfoCard

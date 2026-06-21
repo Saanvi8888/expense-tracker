@@ -12,13 +12,10 @@ import InfoCard from "../../components/cards/InfoCard";
 import InsightsCard from "../../components/cards/InsightsCard";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
-import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
 import Last30daysExpenses from "../../components/Dashboard/Last30daysExpenses";
-import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
-import RecentIncome from "../../components/Dashboard/RecentIncome";
-import CategoryDonutChart from "../../components/Charts/CategoryDonutChart";
 
 import { addThousandsSeparator } from "../../utils/helper";
+import BudgetProgress from "../../components/Dashboard/BudgetProgress";
 
 const Home = () => {
   useUserAuth();
@@ -44,54 +41,44 @@ const Home = () => {
     fetchDashboardData();
   }, []);
 
-
-  const hasExtraData =
-    dashboardData?.last30daysExpenses?.transactions?.length > 0 ||
-    dashboardData?.last60daysIncome?.transactions?.length > 0;
+  const has30DaysData = dashboardData?.last30daysExpenses?.transactions?.length > 0;
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-      <div className="p-6 bg-gray-200 min-h-screen">
-
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="px-4 md:px-6 py-6 bg-slate-50 min-h-screen space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <InfoCard
             icon={<IoMdCard />}
             label="Total Balance"
             value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
-            color="bg-primary"
+            color="bg-emerald-500"
             index="0"
           />
           <InfoCard
             icon={<LuWalletMinimal />}
             label="Total Income"
             value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
-            color="bg-orange-400"
+            color="bg-blue-500"
             index="1"
           />
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Expense"
             value={addThousandsSeparator(dashboardData?.totalExpenses || 0)}
-            color="bg-rose-400"
+            color="bg-rose-500"
             index="2"
           />
         </div>
 
-        
-        <div className="mt-4">
-          <InsightsCard />
-        </div>
-
-        
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <InsightsCard />
+        <BudgetProgress />
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           <div className="lg:col-span-3">
             <RecentTransactions
               transactions={dashboardData?.recentTransactions || []}
               onSeeMore={() => navigate("/expense")}
             />
           </div>
-
           <div className="lg:col-span-2">
             <FinanceOverview
               totalBalance={dashboardData?.totalBalance || 0}
@@ -101,55 +88,12 @@ const Home = () => {
           </div>
         </div>
 
-        
-        {hasExtraData && (
-          <>
-            
-            <div className="mt-4">
-              <Last30daysExpenses
-                data={dashboardData?.last30daysExpenses?.transactions || []}
-              />
-            </div>
-
-           
-            <div className="mt-4 grid grid-cols-1 lg:grid-cols-10 gap-6">
-              <div className="lg:col-span-5">
-                <ExpenseTransactions
-                  transactions={
-                    dashboardData?.last30daysExpenses?.transactions || []
-                  }
-                  onSeeMore={() => navigate("/expense")}
-                />
-              </div>
-
-              <div className="lg:col-span-5">
-                <CategoryDonutChart />
-              </div>
-            </div>
-
-            
-            <div className="mt-4 grid grid-cols-1 lg:grid-cols-10 gap-6">
-              <div className="lg:col-span-5">
-                <RecentIncomeWithChart
-                  data={
-                    dashboardData?.last60daysIncome?.transactions?.slice(0, 4) ||
-                    []
-                  }
-                  totalIncome={dashboardData?.totalIncome || 0}
-                />
-              </div>
-
-              <div className="lg:col-span-5">
-                <RecentIncome
-                  transactions={
-                    dashboardData?.last60daysIncome?.transactions || []
-                  }
-                  onSeeMore={() => navigate("/income")}
-                />
-              </div>
-            </div>
-          </>
+        {has30DaysData && (
+          <Last30daysExpenses
+            data={dashboardData.last30daysExpenses.transactions}
+          />
         )}
+
       </div>
     </DashboardLayout>
   );

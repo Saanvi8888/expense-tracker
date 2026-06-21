@@ -1,7 +1,4 @@
-// export const BASE_URL="http://localhost:8000"
-export const BASE_URL = import.meta.env.PROD 
-  ? ""  
-  : "http://localhost:8000";
+export const BASE_URL =import.meta.env.VITE_API_URL || "http://localhost:8000";
 export const API_PATHS = {
     AUTH:{
         LOGIN:"/api/v1/auth/login",
@@ -27,5 +24,14 @@ export const API_PATHS = {
     },
     IMAGE:{
         UPLOAD_IMAGE:"/api/v1/auth/upload-image",
+    },
+    BUDGET: {
+        SET: "/api/v1/budget",
+        GET_ALL: (month) => `/api/v1/budget/${month}`,
+        GET_SUMMARY: (month) => `/api/v1/budget/summary/${month}`,
+        DELETE:(id)  => `/api/v1/budget/${id}`,
+    },
+    AI:{
+        GET_INSIGHTS : "/api/v1/ai/insights",
     },
 };

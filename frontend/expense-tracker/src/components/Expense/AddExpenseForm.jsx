@@ -30,14 +30,6 @@ const AddExpenseForm = ({onAddExpense}) => {
         onSelect={(selectedIcon)=>handleChange("icon",selectedIcon)}
 
       />
-
-      {/* <Input
-        value={income.category}
-        onChange={({target})=>handleChange("category",target.value)}
-        label="Category"
-        placeholder="Rent,Groceries,etc"
-        type="text"
-      /> */}
       <div className='mb-5'>
         <label className="text-xs  text-gray-700">Category</label>
 

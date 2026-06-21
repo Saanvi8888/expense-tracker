@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { prepareExpenseBarChartData } from '../../utils/helper';
-import CustomBarChart from '../Charts/CustomBarChart';
+import React, { useEffect, useState } from "react";
+import { prepareExpenseBarChartData } from "../../utils/helper";
+import CustomBarChart from "../Charts/CustomBarChart";
 
-const Last30daysExpenses = ({data}) => {
-    const [chartData,setChartData] = useState([]);
+const Last30daysExpenses = ({ data }) => {
+  const [chartData, setChartData] = useState([]);
 
-    useEffect(()=>{
-        const result = prepareExpenseBarChartData(data);
-        setChartData(result);
-        return ()=>{};
-    },[data]);
-  return (
-    <div className='card col-span-1'>
-      <div className='flex items-center justify-between'>
-        <h5 className='text-lg'>Last 30 Days Expenses</h5>
-      </div>
-      {chartData?.length > 0 ? (
-        <CustomBarChart data={chartData} />
-      ) : (
-        <div className="h-52 flex items-center justify-center text-sm text-gray-400 text-center">
-          No data available
-        </div>
+  useEffect(() => {
+    const result = prepareExpenseBarChartData(data);
+    setChartData(result);
+  }, [data]);
 
-      )}
-      
+  return chartData?.length > 0 ? (
+    <div>
+      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">30 Days Expense</h3>
+      <CustomBarChart data={chartData} />
     </div>
-  )
-}
+  ) : (
+    <div className="bg-white rounded-2xl border border-slate-100 p-5 flex items-center justify-center h-[220px]">
+      <p className="text-[11px] text-slate-400 font-mono uppercase tracking-wider">
+        No data available
+      </p>
+    </div>
+  );
+};
 
-export default Last30daysExpenses
+export default Last30daysExpenses;

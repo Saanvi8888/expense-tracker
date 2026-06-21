@@ -28,11 +28,6 @@ function Authlayout({children}) {
           className='absolute -bottom-0 -left-0 rounded-xl shadow-2xl shadow-amber-50'
         />
       </div>
-
-
-
-
-
     </div>
   )
 }

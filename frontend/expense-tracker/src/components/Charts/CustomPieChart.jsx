@@ -1,94 +1,82 @@
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import {PieChart,Pie,Cell,Tooltip,ResponsiveContainer,Legend} from "recharts";
 import CustomTooltip from "./CustomTooltip";
 import CustomLegend from "./CustomLegend";
+
 const COLORS = [
-  "#f2b5b8", 
-  "#9fb6a3", 
-  "#b6d4f2", 
-  "#f3d4b3", 
-  "#d7c2e3", 
-  "#bfe3da", 
-  "#edc7d8", 
-  "#dbe8d4", 
-  "#fce6ec", 
-  "#e6effa", 
-  "#f7eadf", 
-  "#e1d9f2", 
+  "#00b894",
+  "#3b82f6", 
+  "#f43f5e",
+  "#f97316",
+  "#a855f7",
+  "#06b6d4",
+  "#eab308",
+  "#ec4899",
 ];
 
-
-
-const CustomPieChart = ({
-  data = [],
-  label,
-  totalAmount,
-  colors = [],
-  showTextAnchor,
-}) => {
-  
+const CustomPieChart = ({ data = [], label, totalAmount, colors = [], showTextAnchor }) => {
   return (
-    
+    <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+          {label || "Category Breakdown"}
+        </h3>
+       
+      </div>
 
-    <div className="w-full h-[270px] mt-5">
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Pie
-            data={data}
-            dataKey="amount"   
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={100}
-            innerRadius={80}
-          >
-            {data.length > 0 &&
-              data.map((_, index) => (
+      <div className="w-full h-[240px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="amount"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={90}
+              innerRadius={68}
+              strokeWidth={0}
+            >
+              {data.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
+                  fill={(colors[index] || COLORS[index % COLORS.length])}
                 />
-
-
               ))}
-          </Pie>
+            </Pie>
 
-          <Tooltip content={CustomTooltip} />
-          <Legend content={CustomLegend}  />
-          
-          {showTextAnchor && (
-            <>
-              <text
-                x="50%"
-                y="50%"
-                dy={-25}
-                textAnchor="middle"
-                fill="black"
-                fontSize="14px"
-              >
-                {label}
-              </text>
-              <text
-                x="50%"
-                y="50%"
-                dy={8}
-                textAnchor="middle"
-                fill="#333"
-                fontWeight="700"
-              >
-                {totalAmount}
-              </text>
-            </>
-          )}
-        </PieChart>
-      </ResponsiveContainer>
+            <Tooltip content={CustomTooltip} />
+            <Legend content={CustomLegend} />
+
+            {showTextAnchor && (
+              <>
+                <text
+                  x="50%"
+                  y="43%"
+                  textAnchor="middle"
+                  fill="#94a3b8"
+                  fontSize="11px"
+                  fontFamily="monospace"
+                  letterSpacing="0.08em"
+                >
+                  {label?.toUpperCase()}
+                </text>
+                <text
+                  x="50%"
+                  y="53%"
+                  textAnchor="middle"
+                  fill="#1a2332"
+                  fontSize="18px"
+                  fontWeight="800"
+                  fontFamily="Plus Jakarta Sans, sans-serif"
+                >
+                  {totalAmount}
+                </text>
+              </>
+            )}
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
